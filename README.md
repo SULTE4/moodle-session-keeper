@@ -72,5 +72,9 @@ If Chrome's Memory Saver freezes the Moodle tab, the extension's background work
 ## Building a release zip
 
 ```sh
-git archive --prefix=moodle-session-keeper/ -o moodle-session-keeper.zip HEAD manifest.json src icons README.md
+git archive --prefix=moodle-session-keeper/ -o moodle-session-keeper.zip HEAD manifest.json src icons README.md LICENSE
 ```
+
+## License
+
+[MIT](LICENSE)
