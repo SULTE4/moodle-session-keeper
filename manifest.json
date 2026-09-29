@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Moodle Session Keeper",
+  "version": "1.0.0",
+  "description": "Keeps your lms.astanait.edu.kz Moodle session alive while a Moodle tab is open.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["https://lms.astanait.edu.kz/*"],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://lms.astanait.edu.kz/*"],
+      "js": ["src/config.js", "src/session.js", "src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Moodle Session Keeper",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}

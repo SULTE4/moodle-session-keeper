@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Moodle Session Keeper</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <img src="../icons/48.png" alt="" width="24" height="24" />
+      <h1>Moodle Session Keeper</h1>
+    </header>
+
+    <label class="toggle">
+      <span>Keep session alive</span>
+      <input type="checkbox" id="enabled" />
+      <span class="switch" aria-hidden="true"></span>
+    </label>
+
+    <p class="status"><span class="dot" id="dot"></span><span id="state">Loading...</span></p>
+    <p class="meta" id="last"></p>
+    <p class="meta" id="host"></p>
+
+    <script src="config.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
