@@ -2,9 +2,7 @@
 
 A small Chrome extension that keeps you logged in to [lms.astanait.edu.kz](https://lms.astanait.edu.kz). You stop getting kicked out after a few minutes of reading a PDF or working in another window.
 
-[![Demo video: Moodle Session Keeper keeping an LMS session alive (click to play)](docs/demo.jpg)](docs/demo.mp4)
-
-*Click the image to watch the 20-second demo.*
+https://github.com/user-attachments/assets/a4b5dbcb-033b-4f61-aee8-be6385bd0a2b
 
 ## Features
 
