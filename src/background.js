@@ -98,6 +98,10 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 chrome.runtime.onMessage.addListener((msg) => {
+  if (msg?.type === "extended") {
+    setStatus("ok");
+    return;
+  }
   if (msg?.type !== "hello") return;
   (async () => {
     if (msg.session) await chrome.storage.session.set({ session: msg.session });

@@ -2,6 +2,10 @@
 
 A small Chrome extension that keeps you logged in to [lms.astanait.edu.kz](https://lms.astanait.edu.kz). You stop getting kicked out after a few minutes of reading a PDF or working in another window.
 
+[![Demo video: Moodle Session Keeper keeping an LMS session alive (click to play)](docs/demo.jpg)](docs/demo.mp4)
+
+*Click the image to watch the 20-second demo.*
+
 ## Features
 
 - Keeps your Moodle session alive while a Moodle tab is open
@@ -39,11 +43,20 @@ There is nothing to set up. Log in to Moodle as usual and the extension takes ov
 
 Click the extension icon to pause or resume it, or to see when your session was last extended.
 
+<p>
+  <img src="docs/popup-active.png" alt="Popup: keeping your session alive" width="292">
+  <img src="docs/popup-paused.png" alt="Popup: paused" width="292">
+</p>
+
 ## How it works
 
 Moodle logs you out after a period without any requests. Before that happens, it shows a *"Your session is about to time out"* dialog, and its **Extend session** button calls Moodle's `core_session_touch` web service.
 
-The extension makes that same call every 4 minutes, but only while at least one Moodle tab is open. When you close all Moodle tabs it does nothing, and Moodle's normal timeout applies.
+The extension makes that same call every 4 minutes, but only while at least one Moodle tab is open. Your session never sits idle long enough to expire. When you close all Moodle tabs it does nothing, and Moodle's normal timeout applies.
+
+If Moodle still shows its timeout warning, the extension clicks **Extend session** for you:
+
+![Moodle's "Your session is about to time out" dialog](docs/extend-dialog.png)
 
 If Chrome's Memory Saver freezes the Moodle tab, the extension's background worker sends the request itself.
 

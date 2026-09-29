@@ -47,23 +47,35 @@
     return null;
   }
 
+  const clicked = new WeakSet();
+
   function clickExtendDialog() {
     if (!enabled) return;
     for (const modal of document.querySelectorAll(".modal")) {
-      if (getComputedStyle(modal).display === "none") continue;
+      if (clicked.has(modal) || getComputedStyle(modal).display === "none") continue;
       if (!SESSION_TEXT_RE.test(modal.textContent)) continue;
       const button = [...modal.querySelectorAll("button, [data-action]")].find(
         (b) => EXTEND_BUTTON_RE.test(b.textContent) && b.getClientRects().length > 0
       );
-      if (button) button.click();
+      if (!button) continue;
+      clicked.add(modal);
+      button.click();
+      // Moodle's Extend button touches the session, so this counts as an extension.
+      if (alive()) chrome.runtime.sendMessage({ type: "extended" }).catch(() => {});
     }
   }
 
-  let checkTimers = [];
+  let checkPending = false;
   function scheduleDialogCheck() {
+    // Throttle rather than debounce, so busy pages can't keep postponing the check.
     // Modals are appended first and made visible after a short animation.
-    checkTimers.forEach(clearTimeout);
-    checkTimers = [300, 1500].map((ms) => setTimeout(clickExtendDialog, ms));
+    if (checkPending) return;
+    checkPending = true;
+    setTimeout(() => {
+      checkPending = false;
+      clickExtendDialog();
+    }, 300);
+    setTimeout(clickExtendDialog, 1500);
   }
 
   chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
@@ -89,9 +101,15 @@
     if (!alive()) return observer.disconnect();
     scheduleDialogCheck();
   });
-  observer.observe(document.body, { childList: true, subtree: true });
+  // Attributes too: a reused modal node is shown again by toggling class/style only.
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class", "style"],
+  });
 
-  // Backstop in case the dialog is shown by toggling classes only.
+  // Backstop in case a mutation is missed.
   const interval = setInterval(() => {
     if (!alive()) return clearInterval(interval);
     clickExtendDialog();
