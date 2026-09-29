@@ -4,6 +4,12 @@ A small Chrome extension that keeps you logged in to [lms.astanait.edu.kz](https
 
 https://github.com/user-attachments/assets/a4b5dbcb-033b-4f61-aee8-be6385bd0a2b
 
+## The problem
+
+Moodle keeps logging you out. You open a lecture PDF on the AITU LMS, read it for a while without clicking anything, and a *"No recent activity. Your session is about to time out"* dialog pops up. Miss it and you are sent back to the login page with your session timed out, sometimes in the middle of a quiz or an assignment.
+
+This extension fixes that auto logout: it keeps your Moodle session alive in the background and clicks **Extend session** for you.
+
 ## Features
 
 - Keeps your Moodle session alive while a Moodle tab is open
